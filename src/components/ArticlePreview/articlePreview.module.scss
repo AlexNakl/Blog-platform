@@ -1,0 +1,108 @@
+.articlePreview {
+	min-height: 140px;
+	margin: 26px 22px;
+	border-radius: 5px;
+	background-color: #fff;
+	padding: 15px;
+	filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+ }
+ 
+ .mainInfo {
+	display: flex;
+	margin-bottom: 4px;
+	align-items: flex-start;
+	justify-content: space-between;
+ }
+ 
+ .articleInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+ }
+ 
+ .titleAndBtn {
+	margin-right: 10px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+ }
+ 
+ .title {
+	flex-grow: 1;
+	max-width: 690px;
+	color: #1890ff;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 28px;
+	margin-right: 13px;
+	overflow-wrap: anywhere;
+ }
+ 
+ .likesBtn {
+	flex-grow: 1;
+	padding: 0;
+	border: none;
+	display: flex;
+	font-size: 12px;
+	margin-top: 5px;
+	line-height: 22px;
+	align-items: center;
+	background-color: #fff;
+	color: rgba(0, 0, 0, 0.75);
+ 
+	& img {
+	  margin-right: 5px;
+	}
+ }
+ 
+ .tags {
+	display: flex;
+	flex-wrap: wrap;
+ }
+ 
+ .tag {
+	font-size: 12px;
+	padding: 3px 6px;
+	margin-right: 8px;
+	line-height: 15px;
+	border-radius: 2px;
+	color: rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.5);
+ 
+	 &:last-child {
+		margin-right: 0;
+	 }
+ }
+ 
+ .userInfo {
+	display: flex;
+	align-items: flex-start;
+ }
+ 
+ .userName {
+	font-size: 18px;
+	line-height: 28px;
+	margin-right: 12px;
+	color: rgba(0, 0, 0, 0.85);
+ }
+ 
+ .dateRelease {
+	font-size: 12px;
+	line-height: 22px;
+	color: rgba(0, 0, 0, 0.5);
+ }
+ 
+ .description {
+	overflow-wrap: anywhere;
+	font-size: 12px;
+	max-width: 700px;
+	line-height: 22px;
+	color: rgba(0, 0, 0, 0.75);
+ }
+ 
+ .avatar {
+	width: 46px;
+	height: 46px;
+	margin-left: 12px;
+	border-radius: 50%;
+ }

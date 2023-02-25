@@ -1,0 +1,156 @@
+.main {
+	margin: 0 auto;
+	max-width: 985px;
+}
+
+.article {
+	max-width: 985px;
+	margin: 26px auto;
+	border-radius: 5px;
+	background-color: #fff;
+	padding: 15px;
+	filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+ }
+ 
+ .mainInfo {
+	display: flex;
+	margin-bottom: 4px;
+	align-items: flex-start;
+	justify-content: space-between;
+ }
+ 
+ .articleInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+ }
+ 
+ .titleAndBtn {
+	display: flex;
+ }
+ 
+ .title {
+	color: #1890ff;
+	max-width: 690px;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 28px;
+	margin-right: 13px;
+ }
+ 
+ .likesBtn {
+	padding: 0;
+	border: none;
+	display: flex;
+	cursor: pointer;
+	font-size: 12px;
+	line-height: 22px;
+	align-items: flex-start;
+	margin-top: 5px;
+	background-color: #fff;
+	color: rgba(0, 0, 0, 0.75);
+ 
+	& img {
+	  margin-right: 5px;
+	}
+ }
+ 
+ .tags {
+	 display: flex;
+	 flex-wrap: wrap;
+ }
+ 
+ .tag {
+	max-width: 330px;
+	font-size: 12px;
+	padding: 3px 6px;
+	margin-right: 8px;
+	line-height: 15px;
+	border-radius: 2px;
+	color: rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.5);
+ 
+	&:last-child {
+	  margin-right: 0;
+	}
+ }
+ 
+ .userInfo {
+	display: flex;
+	align-items: flex-start;
+ }
+ 
+ .userName {
+	font-size: 18px;
+	line-height: 28px;
+	margin-right: 12px;
+ }
+ 
+ .dateRelease {
+	font-size: 12px;
+	line-height: 22px;
+	color: rgba(0, 0, 0, 0.5);
+ }
+ 
+ .descriptionWrapper {
+	display: flex;
+	margin: 16px 0 25px 0;
+	align-items: center;
+	justify-content: space-between;
+ }
+ 
+ .description {
+	overflow-wrap: anywhere;
+	font-size: 12px;
+	max-width: 700px;
+	line-height: 22px;
+	color: rgba(0, 0, 0, 0.75);
+ }
+ 
+ .btnDelete {
+	height: 32px;
+	color: #f5222d;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 22px;
+	padding: 0 17px;
+	margin-right: 12px;
+	border-radius: 5px;
+	background-color: #fff;
+	border: 1px solid #f5222d;
+ 
+	 &:hover
+	  {
+		 color: #fff;
+		 background-color: #f5222d;
+	 }
+ }
+ 
+ .btnEdit {
+	height: 32px;
+	color: #52c41a;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 22px;
+	padding: 0 17px;
+	margin-right: 12px;
+	border-radius: 5px;
+	background-color: #fff;
+	border: 1px solid #52c41a;
+ 
+	 &:hover {
+		 color: #fff;
+		 background-color: #52c41a;
+	 }
+ }
+ 
+ .avatar {
+	width: 46px;
+	height: 46px;
+	margin-left: 12px;
+	border-radius: 50%;
+ }
+
+ .markdown{
+	overflow-wrap: anywhere;
+ }

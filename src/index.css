@@ -1,1 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto:wght@400;500&display=swap');
 
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
+body,
+p,
+h1,
+h2 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+	text-decoration:none;
+}
+
+body {
+  font-weight: 400;
+  background-color: #ebeef3;
+  color: rgba(0, 0, 0, 0.85);
+  font-family: 'Inter', sans-serif;
+}
+
+button {
+  margin: 0;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #bfbfbf;
+}
