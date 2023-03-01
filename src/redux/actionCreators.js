@@ -1,4 +1,7 @@
+import Cookies from 'js-cookie';
+
 import BlogApiServices from '../services/BlogApiServices';
+import BlogApiSessionServices from '../services/BlogApiSessionServices';
 
 import {
   GET_ARTICLES_GLOBALLY,
@@ -7,9 +10,14 @@ import {
   TOGGLE_LOADING,
   ERROR_STATUS,
   GET_ARTICLE_SLUG,
+  PUT_REG_ERROR,
+  REGISTRATION,
+  LOG_OUT,
+  PUT_IMG_USER,
 } from './actions';
 
 const BlogApi = new BlogApiServices();
+const BlogApiSession = new BlogApiSessionServices();
 
 // Status
 export const toggleLoading = (isLoading) => ({ type: TOGGLE_LOADING, payload: isLoading });
@@ -28,6 +36,7 @@ export const getArticlesGlobally = (limit, offset) => async (dispatch) => {
   } catch (err) {
     console.error(err, err.message);
     dispatch(updateError({ active: true, message: `${err.message}` }));
+    dispatch(toggleLoading(false));
   }
 };
 
@@ -42,5 +51,129 @@ export const getArticleSlug = (slug) => async (dispatch) => {
   } catch (err) {
     console.error(err, err.message);
     dispatch(updateError({ active: true, message: `${err.message}` }));
+    dispatch(toggleLoading(false));
+  }
+};
+
+// UserData
+export const registration = (data, cb) => async (dispatch) => {
+  dispatch(toggleLoading(true));
+  dispatch(updateError({ active: false, message: '' }));
+  dispatch({ type: PUT_REG_ERROR, payload: null });
+  try {
+    const { userName, email, password } = data;
+    const res = await BlogApiSession.registerNewUser({ username: userName, email, password });
+
+    if (res.errors) {
+      dispatch({ type: PUT_REG_ERROR, payload: res.errors });
+      dispatch(toggleLoading(false));
+    } else {
+      const user = await BlogApiSession.login({ email, password });
+      cb();
+      Cookies.set('auth-token', user.user.token, { expires: 30 });
+      dispatch({ type: REGISTRATION, payload: user.user });
+      dispatch(toggleLoading(false));
+    }
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+    dispatch(toggleLoading(false));
+  }
+};
+
+export const login = (data, cb) => async (dispatch) => {
+  dispatch(toggleLoading(true));
+  dispatch(updateError({ active: false, message: '' }));
+  dispatch({ type: PUT_REG_ERROR, payload: null });
+  try {
+    const { email, password } = data;
+    const res = await BlogApiSession.login({ email, password });
+
+    if (res.errors) {
+      dispatch({ type: PUT_REG_ERROR, payload: res.errors });
+      dispatch(toggleLoading(false));
+    } else {
+      cb();
+      Cookies.set('auth-token', res.user.token, { expires: 30 });
+      dispatch({ type: REGISTRATION, payload: res.user });
+      dispatch(toggleLoading(false));
+    }
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+    dispatch(toggleLoading(false));
+  }
+};
+
+export const getCurrentlyUser = () => async (dispatch) => {
+  try {
+    const authToken = Cookies.get('auth-token');
+
+    if (authToken) {
+      const res = await BlogApiSession.getCurrentlyUser(authToken);
+
+      if (res.errors) {
+        Cookies.remove('auth-token');
+        dispatch({ type: LOG_OUT });
+      } else {
+        dispatch({ type: REGISTRATION, payload: res.user });
+      }
+    }
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+  }
+};
+
+export const getImgProfileUser = (userName) => async (dispatch) => {
+  try {
+    const res = await BlogApi.getProfileUser(userName);
+    dispatch({ type: PUT_IMG_USER, payload: res.profile.image });
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+  }
+};
+
+export const logOut = (cb) => async (dispatch) => {
+  Cookies.remove('auth-token');
+  dispatch({ type: LOG_OUT });
+  cb();
+  dispatch(getArticlesGlobally());
+};
+
+export const editProfile = (newUserData, cb) => async (dispatch) => {
+  dispatch(toggleLoading(true));
+  dispatch(updateError({ active: false, message: '' }));
+  dispatch({ type: PUT_REG_ERROR, payload: null });
+  try {
+    const authToken = Cookies.get('auth-token');
+    const newData = { ...newUserData };
+
+    Object.keys(newData).forEach((key) => {
+      if (newData[key] === '') {
+        delete newData[key];
+      }
+      if (key === 'userName') {
+        newData.username = newData[key];
+        delete newData[key];
+      }
+    });
+
+    const res = await BlogApiSession.editProfileUser(authToken, newData);
+
+    if (res.errors) {
+      dispatch({ type: PUT_REG_ERROR, payload: res.errors });
+      dispatch(toggleLoading(false));
+    } else {
+      dispatch(getCurrentlyUser());
+      dispatch(getImgProfileUser(res.user.username));
+      cb();
+      dispatch(toggleLoading(false));
+    }
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+    dispatch(toggleLoading(false));
   }
 };

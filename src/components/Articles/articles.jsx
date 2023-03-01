@@ -27,7 +27,7 @@ function Articles() {
 
   return (
     <main className={classes.articles}>
-      {isLoading && !error.active ? <Spinner /> : null}
+      {isLoading && !error.active ? <Spinner size="large" /> : null}
       {error.active ? <Alert message="Error" description={error.message} type="error" showIcon /> : null}
       {hasData
         ? articles.map((article) => (

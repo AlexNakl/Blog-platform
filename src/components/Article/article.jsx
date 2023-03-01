@@ -27,7 +27,7 @@ function Article() {
 
   return (
     <main className={classes.main}>
-      {isLoading && !error.active ? <Spinner /> : null}
+      {isLoading && !error.active ? <Spinner size="large" /> : null}
       {error.active ? <Alert message="Error" description={error.message} type="error" showIcon /> : null}
       {hasData ? (
         <article className={classes.article}>
@@ -41,11 +41,13 @@ function Article() {
                 </button>
               </div>
               <div className={classes.tags}>
-                {article.tagList.map((tag) => (
-                  <span key={uuid()} className={classes.tag}>
-                    {tag}
-                  </span>
-                ))}
+                {article.tagList.map((tag) =>
+                  tag ? (
+                    <span key={uuid()} className={classes.tag}>
+                      {tag}
+                    </span>
+                  ) : null
+                )}
               </div>
             </div>
             <div className={classes.userInfo}>

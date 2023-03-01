@@ -10,3 +10,7 @@ export const getArticle = (state) => state.article.article;
 // Status
 export const getIsLoading = (state) => state.status.isLoading;
 export const getError = (state) => state.status.error;
+
+// UserData
+export const getRegErrors = (state) => state.userData.regErrors;
+export const getUser = (state) => state.userData.user;

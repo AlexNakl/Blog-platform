@@ -3,10 +3,10 @@ import { Spin } from 'antd';
 
 import classes from './spinner.module.scss';
 
-function Spinner() {
+function Spinner({ size }) {
   return (
     <div className={classes.spinner}>
-      <Spin size="large" />
+      <Spin size={size} />
     </div>
   );
 }

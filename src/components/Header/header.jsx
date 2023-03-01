@@ -1,21 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import classes from './header.module.scss';
 
 function Header() {
   return (
     <header className={classes.header}>
-      <Link className={classes.title} to="/articles">
+      <Link className={classes.title} to="articles">
         Realworld Blog
       </Link>
       <div className={classes['btns-wrapper']}>
-        <button className={`${classes.signIn} ${classes.active}`} type="button">
+        <NavLink to="sign-in" className={({ isActive }) => (isActive ? classes.active : classes.signIn)}>
           Sign In
-        </button>
-        <button className={`${classes.signUp} ${classes.active}`} type="button">
+        </NavLink>
+        <NavLink to="sign-up" className={({ isActive }) => (isActive ? classes.active : classes.signUp)}>
           Sign Up
-        </button>
+        </NavLink>
       </div>
     </header>
   );

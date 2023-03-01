@@ -12,7 +12,7 @@ function ArticlePreview({ userName, avatar, title, likes, description, dateRelea
       <div className={classes.mainInfo}>
         <div className={classes.articleInfo}>
           <div className={classes.titleAndBtn}>
-            <Link className={classes.title} to={`/articles/${slug}`}>
+            <Link className={classes.title} to={`${slug}`}>
               {shortenText(title, 150)}
             </Link>
             <button onClick={() => {}} className={classes.likesBtn} type="button">
@@ -21,11 +21,13 @@ function ArticlePreview({ userName, avatar, title, likes, description, dateRelea
             </button>
           </div>
           <div className={classes.tags}>
-            {tagList.map((tag) => (
-              <span key={uuid()} className={classes.tag}>
-                {shortenText(tag, 30)}
-              </span>
-            ))}
+            {tagList.map((tag) =>
+              tag ? (
+                <span key={uuid()} className={classes.tag}>
+                  {shortenText(tag, 30)}
+                </span>
+              ) : null
+            )}
           </div>
         </div>
         <div className={classes.userInfo}>

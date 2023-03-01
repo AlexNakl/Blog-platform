@@ -15,15 +15,15 @@ export default class BlogApiServices {
     if (!response.ok) {
       switch (response.status) {
         case 401:
-          throw new Error(`Код ${response.status}: Не достаточно прав.`);
+          throw new Error(`Code ${response.status}: Unauthorized.`);
         case 404:
           throw new Error(
-            `Код ${response.status}: Ресурс не найден или не доступен. Проверьте подключение к интернету.`
+            `Code ${response.status}: Resource not found or not available. Try check your internet connection.`
           );
         case 422:
-          throw new Error(`Код ${response.status}: Неожиданная ошибка.`);
+          throw new Error(`Code ${response.status}: Unexpected error.`);
         default:
-          throw new Error(`Код ${response.status}: Что-то пошло не так.`);
+          throw new Error(`Code ${response.status}: Something went wrong.`);
       }
     }
 
@@ -40,12 +40,36 @@ export default class BlogApiServices {
       switch (response.status) {
         case 404:
           throw new Error(
-            `Код ${response.status}: Ресурс не найден или не доступен. Проверьте подключение к интернету.`
+            `Code ${response.status}: Resource not found or not available. Try check your internet connection.`
           );
         case 422:
-          throw new Error(`Код ${response.status}: Неожиданная ошибка.`);
+          throw new Error(`Code ${response.status}: Unexpected error.`);
         default:
-          throw new Error(`Код ${response.status}: Что-то пошло не так.`);
+          throw new Error(`Code ${response.status}: Something went wrong.`);
+      }
+    }
+
+    const body = await response.json();
+
+    return body;
+  }
+
+  async getProfileUser(userName) {
+    const urlProfileUser = new URL(`/api/profiles/${userName}`, this.baseUrl);
+    const response = await fetch(urlProfileUser);
+
+    if (!response.ok) {
+      switch (response.status) {
+        case 401:
+          throw new Error(`Code ${response.status}: Unauthorized.`);
+        case 404:
+          throw new Error(
+            `Code ${response.status}: Resource not found or not available. Try check your internet connection.`
+          );
+        case 422:
+          throw new Error(`Code ${response.status}: Unexpected error.`);
+        default:
+          throw new Error(`Code ${response.status}: Something went wrong.`);
       }
     }
 
