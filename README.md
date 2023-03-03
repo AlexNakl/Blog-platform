@@ -1,3 +1,3 @@
 Blog-platform
 
-blog-platform-alexnakl.vercel.app
+https://blog-platform-alexnakl.vercel.app/
