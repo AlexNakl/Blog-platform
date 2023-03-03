@@ -2,7 +2,6 @@ import React from 'react';
 import { Pagination } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
-// eslint-disable-next-line no-unused-vars
 import { changeUsePage, changePageSize } from '../../redux/actionCreators';
 import { getArticlesCount, getUsePage, getPageSize } from '../../redux/selectors';
 

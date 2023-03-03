@@ -28,7 +28,6 @@
 }
  
 .title {
-	flex-grow: 1;
 	max-width: 690px;
 	color: #1890ff;
 	font-size: 20px;
@@ -39,7 +38,6 @@
 }
  
 .likesBtn {
-	flex-grow: 1;
 	padding: 0;
 	border: none;
 	display: flex;
@@ -63,12 +61,12 @@
 .tags {
 	display: flex;
 	flex-wrap: wrap;
+	gap: 8px;
 }
  
 .tag {
 	font-size: 12px;
 	padding: 3px 6px;
-	margin-right: 8px;
 	line-height: 15px;
 	border-radius: 2px;
 	color: rgba(0, 0, 0, 0.5);

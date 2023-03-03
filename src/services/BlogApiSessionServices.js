@@ -141,7 +141,6 @@ export default class BlogApiSessionServices {
           );
         case 422:
           return body;
-        // throw new Error(`Code ${response.status}: Unexpected error.`);
         default:
           throw new Error(`Code ${response.status}: Something went wrong.`);
       }
