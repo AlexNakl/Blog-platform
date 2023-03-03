@@ -1,6 +1,7 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { formatDate, getIcon, shortenText } from '../../util/util';
 
@@ -13,7 +14,7 @@ function ArticlePreview({ userName, avatar, title, likes, description, dateRelea
         <div className={classes.articleInfo}>
           <div className={classes.titleAndBtn}>
             <Link className={classes.title} to={`${slug}`}>
-              {shortenText(title, 150)}
+              {title === '' ? <>Article</> : shortenText(title, 150)}
             </Link>
             <button onClick={() => {}} className={classes.likesBtn} type="button">
               <img src={getIcon(isFavorited)} alt="" />
@@ -42,5 +43,29 @@ function ArticlePreview({ userName, avatar, title, likes, description, dateRelea
     </article>
   );
 }
+
+ArticlePreview.defaultProps = {
+  likes: 0,
+  slug: '',
+  title: '',
+  avatar: '',
+  tagList: [],
+  userName: '',
+  description: '',
+  dateRelease: '',
+  isFavorited: false,
+};
+
+ArticlePreview.propTypes = {
+  slug: PropTypes.string,
+  title: PropTypes.string,
+  likes: PropTypes.number,
+  avatar: PropTypes.string,
+  userName: PropTypes.string,
+  isFavorited: PropTypes.bool,
+  description: PropTypes.string,
+  dateRelease: PropTypes.string,
+  tagList: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default ArticlePreview;

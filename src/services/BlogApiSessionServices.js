@@ -118,4 +118,88 @@ export default class BlogApiSessionServices {
 
     return body;
   }
+
+  async createArticle(token, articleData) {
+    const urlCreateArticle = new URL('/api/articles', this.baseUrl);
+    const response = await fetch(urlCreateArticle, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ article: articleData }),
+    });
+    const body = await response.json();
+
+    if (!response.ok) {
+      switch (response.status) {
+        case 401:
+          throw new Error(`Code ${response.status}: Unauthorized.`);
+        case 404:
+          throw new Error(
+            `Code ${response.status}: Resource not found or not available. Try check your internet connection.`
+          );
+        case 422:
+          return body;
+        // throw new Error(`Code ${response.status}: Unexpected error.`);
+        default:
+          throw new Error(`Code ${response.status}: Something went wrong.`);
+      }
+    }
+
+    return body;
+  }
+
+  async deleteArticle(token, slug) {
+    const urlDeleteArticle = new URL(`/api/articles/${slug}`, this.baseUrl);
+    const response = await fetch(urlDeleteArticle, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    });
+
+    if (!response.ok) {
+      switch (response.status) {
+        case 401:
+          throw new Error(`Code ${response.status}: Unauthorized.`);
+        case 404:
+          throw new Error(
+            `Code ${response.status}: Resource not found or not available. Try check your internet connection.`
+          );
+        case 422:
+          throw new Error(`Code ${response.status}: Unexpected error.`);
+        default:
+          throw new Error(`Code ${response.status}: Something went wrong.`);
+      }
+    }
+  }
+
+  async editArticle(token, slug, editData) {
+    const urlEditArticle = new URL(`/api/articles/${slug}`, this.baseUrl);
+    const response = await fetch(urlEditArticle, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ article: editData }),
+    });
+
+    if (!response.ok) {
+      switch (response.status) {
+        case 401:
+          throw new Error(`Code ${response.status}: Unauthorized.`);
+        case 404:
+          throw new Error(
+            `Code ${response.status}: Resource not found or not available. Try check your internet connection.`
+          );
+        case 422:
+          throw new Error(`Code ${response.status}: Unexpected error.`);
+        default:
+          throw new Error(`Code ${response.status}: Something went wrong.`);
+      }
+    }
+  }
 }

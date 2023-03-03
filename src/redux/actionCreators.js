@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Cookies from 'js-cookie';
 
 import BlogApiServices from '../services/BlogApiServices';
@@ -14,6 +15,7 @@ import {
   REGISTRATION,
   LOG_OUT,
   PUT_IMG_USER,
+  DELETE_ARTICLE,
 } from './actions';
 
 const BlogApi = new BlogApiServices();
@@ -48,6 +50,53 @@ export const getArticleSlug = (slug) => async (dispatch) => {
     const response = await BlogApi.getArticle(slug);
     dispatch({ type: GET_ARTICLE_SLUG, payload: response });
     dispatch(toggleLoading(false));
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+    dispatch(toggleLoading(false));
+  }
+};
+
+export const createArticle = (articleData, cb) => async (dispatch) => {
+  dispatch(toggleLoading(true));
+  dispatch(updateError({ active: false, message: '' }));
+  dispatch({ type: PUT_REG_ERROR, payload: null });
+  try {
+    const authToken = Cookies.get('auth-token');
+    await BlogApiSession.createArticle(authToken, articleData);
+    cb();
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+    dispatch(toggleLoading(false));
+  }
+};
+
+export const deleteArticle = (slug, cb) => async (dispatch) => {
+  dispatch(toggleLoading(true));
+  dispatch(updateError({ active: false, message: '' }));
+  dispatch({ type: PUT_REG_ERROR, payload: null });
+  try {
+    const authToken = Cookies.get('auth-token');
+    await BlogApiSession.deleteArticle(authToken, slug);
+    cb();
+    dispatch({ type: DELETE_ARTICLE });
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+    dispatch(toggleLoading(false));
+  }
+};
+
+export const editArticle = (editData, slug, cb) => async (dispatch) => {
+  dispatch(toggleLoading(true));
+  dispatch(updateError({ active: false, message: '' }));
+  dispatch({ type: PUT_REG_ERROR, payload: null });
+  try {
+    const authToken = Cookies.get('auth-token');
+    await BlogApiSession.editArticle(authToken, slug, editData);
+    cb();
+    dispatch({ type: DELETE_ARTICLE });
   } catch (err) {
     console.error(err, err.message);
     dispatch(updateError({ active: true, message: `${err.message}` }));

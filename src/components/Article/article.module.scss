@@ -10,35 +10,35 @@
 	background-color: #fff;
 	padding: 15px;
 	filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
- }
+}
  
- .mainInfo {
+.mainInfo {
 	display: flex;
 	margin-bottom: 4px;
 	align-items: flex-start;
 	justify-content: space-between;
- }
+}
  
- .articleInfo {
+.articleInfo {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
- }
+}
  
- .titleAndBtn {
+.titleAndBtn {
 	display: flex;
- }
+}
  
- .title {
+.title {
 	color: #1890ff;
 	max-width: 690px;
 	font-size: 20px;
 	font-weight: 400;
 	line-height: 28px;
 	margin-right: 13px;
- }
+}
  
- .likesBtn {
+.likesBtn {
 	padding: 0;
 	border: none;
 	display: flex;
@@ -51,16 +51,16 @@
 	color: rgba(0, 0, 0, 0.75);
  
 	& img {
-	  margin-right: 5px;
+		margin-right: 5px;
 	}
- }
+}
  
- .tags {
-	 display: flex;
-	 flex-wrap: wrap;
- }
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+}
  
- .tag {
+.tag {
 	max-width: 330px;
 	font-size: 12px;
 	padding: 3px 6px;
@@ -71,20 +71,20 @@
 	border: 1px solid rgba(0, 0, 0, 0.5);
  
 	&:last-child {
-	  margin-right: 0;
+		margin-right: 0;
 	}
- }
+}
  
- .userInfo {
+.userInfo {
 	display: flex;
 	align-items: flex-start;
- }
+}
  
- .userName {
+.userName {
 	font-size: 18px;
 	line-height: 28px;
 	margin-right: 12px;
- }
+}
  
  .dateRelease {
 	font-size: 12px;
@@ -92,22 +92,22 @@
 	color: rgba(0, 0, 0, 0.5);
  }
  
- .descriptionWrapper {
+.descriptionWrapper {
 	display: flex;
 	margin: 16px 0 25px 0;
 	align-items: center;
 	justify-content: space-between;
- }
+}
  
- .description {
+.description {
 	overflow-wrap: anywhere;
 	font-size: 12px;
 	max-width: 700px;
 	line-height: 22px;
 	color: rgba(0, 0, 0, 0.75);
- }
+}
  
- .btnDelete {
+.btnDelete {
 	height: 32px;
 	color: #f5222d;
 	cursor: pointer;
@@ -119,38 +119,37 @@
 	background-color: #fff;
 	border: 1px solid #f5222d;
  
-	 &:hover
-	  {
-		 color: #fff;
-		 background-color: #f5222d;
+	&:hover{
+		color: #fff;
+		background-color: #f5222d;
 	 }
- }
+}
  
- .btnEdit {
+.btnEdit {
 	height: 32px;
 	color: #52c41a;
 	cursor: pointer;
 	font-size: 14px;
 	line-height: 22px;
-	padding: 0 17px;
+	padding: 6.5px 17px;
 	margin-right: 12px;
 	border-radius: 5px;
 	background-color: #fff;
 	border: 1px solid #52c41a;
+
+	&:hover {
+		color: #fff;
+		background-color: #52c41a;
+	}
+}
  
-	 &:hover {
-		 color: #fff;
-		 background-color: #52c41a;
-	 }
- }
- 
- .avatar {
+.avatar {
 	width: 46px;
 	height: 46px;
 	margin-left: 12px;
 	border-radius: 50%;
- }
+}
 
- .markdown{
+.markdown{
 	overflow-wrap: anywhere;
- }
+}

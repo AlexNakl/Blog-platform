@@ -90,8 +90,8 @@ function EditProfile() {
             type="email"
             name="email"
             defaultValue={user.email}
-            {...register('email')}
             placeholder="Email address"
+            {...register('email')}
             className={errors.email ? classes.inputFieldError : classes.inputField}
           />
         </label>
@@ -103,8 +103,8 @@ function EditProfile() {
           <input
             type="password"
             name="password"
-            {...register('password')}
             placeholder="New password"
+            {...register('password')}
             className={errors.password ? classes.inputFieldError : classes.inputField}
           />
         </label>
@@ -117,8 +117,8 @@ function EditProfile() {
             type="text"
             name="image"
             defaultValue={user.image}
-            {...register('image')}
             placeholder="Avatar image"
+            {...register('image')}
             className={errors.image ? classes.inputFieldError : classes.inputField}
           />
         </label>

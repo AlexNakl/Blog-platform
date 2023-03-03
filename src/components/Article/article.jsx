@@ -1,29 +1,33 @@
-import { Alert } from 'antd';
+import { Alert, Popconfirm } from 'antd';
 import { v4 as uuid } from 'uuid';
 import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 import Spinner from '../Spinner';
 import { formatDate, getIcon } from '../../util/util';
-import { getArticleSlug } from '../../redux/actionCreators';
-import { getArticle, getIsLoading, getError } from '../../redux/selectors';
+import { getArticleSlug, deleteArticle } from '../../redux/actionCreators';
+import { getArticle, getIsLoading, getError, getUser } from '../../redux/selectors';
 
 import classes from './article.module.scss';
 
 function Article() {
   const { slug } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const article = useSelector(getArticle);
+  const user = useSelector(getUser);
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
+  const hasData = !(isLoading || error.active);
+  const confirm = () => {
+    dispatch(deleteArticle(slug, () => navigate('/', { replace: true })));
+  };
 
   useEffect(() => {
     dispatch(getArticleSlug(slug));
   }, [dispatch]);
-
-  const hasData = !(isLoading || error.active);
 
   return (
     <main className={classes.main}>
@@ -60,14 +64,22 @@ function Article() {
           </div>
           <div className={classes.descriptionWrapper}>
             <p className={classes.description}>{article.description}</p>
-            {true ? (
+            {article.author.username === user?.username ? (
               <div className={classes.buttons}>
-                <button type="button" className={classes.btnDelete}>
-                  Delete
-                </button>
-                <button type="button" className={classes.btnEdit}>
+                <Popconfirm
+                  title="Delete the article"
+                  description="Are you sure to delete this article?"
+                  onConfirm={confirm}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <button type="button" className={classes.btnDelete}>
+                    Delete
+                  </button>
+                </Popconfirm>
+                <Link to={`/articles/${slug}/edit`} state={article} className={classes.btnEdit}>
                   Edit
-                </button>
+                </Link>
               </div>
             ) : null}
           </div>

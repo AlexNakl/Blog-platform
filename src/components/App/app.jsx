@@ -8,7 +8,10 @@ import Article from '../Article';
 import SignUp from '../SignUp';
 import SignIn from '../SignIn';
 import EditProfile from '../EditProfile';
+import CreateArticle from '../CreateArticle';
 import { getCurrentlyUser } from '../../redux/actionCreators';
+import ArticleFormContainer from '../../hoc/articleFormContainer';
+import PrivateRoute from '../../hoc/privateRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,7 +30,11 @@ function App() {
           <Route path=":slug" element={<Article />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="sign-in" element={<SignIn />} />
-          <Route path="profile" element={<EditProfile />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="profile" element={<EditProfile />} />
+            <Route path="new-article" element={<CreateArticle />} />
+            <Route path="articles/:slug/edit" element={<ArticleFormContainer />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

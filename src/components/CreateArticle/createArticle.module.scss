@@ -1,0 +1,146 @@
+.form {
+	width: 938px;
+	margin: 59px auto;
+	padding: 48px 32px;
+	border-radius: 6px;
+	background-color: #fff;
+	font-family: 'Roboto', sans-serif;
+	box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
+	  0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035),
+	  0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+}
+ 
+.title {
+	color: #262626;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 28px;
+	text-align: center;
+	padding-bottom: 21px;
+}
+ 
+.inputWrapper {
+	margin-bottom: 21px;
+}
+ 
+.inputName {
+	color: #262626;
+	display: block;
+	font-size: 14px;
+	line-height: 22px;
+}
+ 
+.inputField {
+	width: 874px;
+	height: 40px;
+	padding: 8px 12px;
+	border-radius: 4px;
+	border: 1px solid #d9d9d9;
+}
+ 
+.inputFieldError {
+	width: 874px;
+	height: 40px;
+	padding: 8px 12px;
+	border-radius: 4px;
+	border: 1px solid #f5222d;
+}
+ 
+.articleBody {
+	width: 874px;
+	height: 168px;
+	padding: 7px 12px;
+	border-radius: 4px;
+	border: 1px solid #d9d9d9;
+	resize: vertical;
+}
+ 
+.articleBodyError {
+	width: 874px;
+	height: 168px;
+	padding: 7px 12px;
+	border-radius: 4px;
+	border: 1px solid #f5222d;
+	resize: vertical;
+}
+ 
+.btnSend {
+	margin-top: 40px; 
+	margin-left: auto;
+	display: block;
+	color: #fff;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+	line-height: 24px;
+	border-radius: 4px;
+	background: #1890ff;
+	padding: 8px 141.5px;
+ 
+	&:active,
+	&:focus {
+		outline: none;
+	}
+ 
+	&:disabled {
+		cursor: default;
+		background: #188fff81;
+	}
+}
+ 
+.btnDelete {
+	height: 42px;
+	color: #f5222d;
+	cursor: pointer;
+	font-size: 16px;
+	padding: 8px 36px;
+	line-height: 24px;
+	border-radius: 4px;
+	margin-right: 17px;
+	background-color: #fff;
+	border: 1px solid #f5222d;
+}
+ 
+.btnAddTag {
+	height: 42px;
+	margin: 5px 0;
+	color: #1890ff;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 8px 40px;
+	line-height: 24px;
+	border-radius: 4px;
+	background-color: #fff;
+	border: 1px solid #1890ff;
+}
+ 
+.tagListWrapper {
+}
+ 
+.tagList {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+ 
+	& > li {
+		margin: 5px 0;
+	}
+}
+ 
+.tag {
+	width: 300px;
+	height: 42px;
+	font-size: 16px;
+	line-height: 24px;
+	padding: 8px 12px;
+	border-radius: 4px;
+	margin-right: 17px;
+	border: 1px solid #d9d9d9;
+	color: rgba(0, 0, 0, 0.75);
+}
+ 
+.error {
+	color: #f5222d;
+	font-size: 14px;
+	line-height: 22px;
+}

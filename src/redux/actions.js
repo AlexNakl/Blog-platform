@@ -5,6 +5,7 @@ export const CHANGE_PAGE_SIZE = 'CHANGE_PAGE_SIZE';
 
 // Article
 export const GET_ARTICLE_SLUG = 'GET_ARTICLE_SLUG';
+export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 
 // Status
 export const TOGGLE_LOADING = 'TOGGLE_LOADING';

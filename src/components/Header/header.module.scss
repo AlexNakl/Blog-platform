@@ -5,28 +5,28 @@
 	align-items: center;
 	background-color: #fff;
 	justify-content: space-between;
- }
+}
  
- .title {
+.title {
 	font-size: 18px;
 	font-weight: 400;
 	line-height: 28px;
 	cursor: pointer;
 
 	&:hover {
-	  color: #1890ff;
+		color: #1890ff;
 	}
- }
+}
  
- .btns-wrapper {
+.btns-wrapper {
 	display: flex;
 	flex-basis: 212px;
 	align-items: center;
 	justify-content: space-between;
- }
+}
  
- .signIn,
- .signUp {
+.signIn,
+.signUp {
 	font-size: 18px;
 	line-height: 28px;
 	background-color: #fff;
@@ -36,11 +36,11 @@
    cursor: pointer;
 
 	&:hover {
-	  color: #52c41a;
+		color: #52c41a;
 	}
- }
+}
 
- .active {
+.active {
 	color: #52c41a;
 	font-size: 18px;
 	line-height: 28px;
@@ -50,6 +50,6 @@
 	border: 1px solid #52c41a;
  
 	&:hover {
-	  color: #52c41a;
+		color: #52c41a;
 	}
- }
+}
