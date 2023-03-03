@@ -24,14 +24,14 @@ function UserHeader() {
   };
   return (
     <header className={classes.header}>
-      <Link className={classes.title} to="articles">
+      <Link className={classes.title} to="/articles">
         Realworld Blog
       </Link>
       <div className={classes.btnsWrapper}>
-        <NavLink to="new-article" className={({ isActive }) => (isActive ? classes.active : classes.createArticle)}>
+        <NavLink to="/new-article" className={({ isActive }) => (isActive ? classes.active : classes.createArticle)}>
           Create article
         </NavLink>
-        <Link className={classes.userInfo} to="profile">
+        <Link className={classes.userInfo} to="/profile">
           <p className={classes.username}>{user.username}</p>
           <img src={imgSrc} alt="avatar" />
         </Link>

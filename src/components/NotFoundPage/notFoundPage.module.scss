@@ -1,0 +1,15 @@
+.notFoundPage-wrapper{
+	margin-top: 40px;
+	text-align: center;
+}
+
+.link{
+	font-size: 26px;
+	font-weight: 600;
+	line-height: 28px;
+	cursor: pointer;
+
+	&:hover {
+		color: #1890ff;
+	}
+}

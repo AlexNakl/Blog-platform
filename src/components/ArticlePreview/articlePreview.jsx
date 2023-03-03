@@ -1,22 +1,48 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 
 import { formatDate, getIcon, shortenText } from '../../util/util';
+import { favoritePreview, unfavoritePreview } from '../../redux/actionCreators';
 
 import classes from './articlePreview.module.scss';
 
-function ArticlePreview({ userName, avatar, title, likes, description, dateRelease, tagList, slug, isFavorited }) {
+function ArticlePreview({
+  userName,
+  avatar,
+  title,
+  likes,
+  description,
+  dateRelease,
+  tagList,
+  slug,
+  isFavorited,
+  index,
+}) {
+  const dispatch = useDispatch();
+  const authToken = Cookies.get('auth-token');
+
+  const onLiked = () => {
+    if (isFavorited) {
+      dispatch(unfavoritePreview(slug, index));
+    } else {
+      dispatch(favoritePreview(slug, index));
+    }
+  };
+
   return (
     <article className={classes.articlePreview}>
       <div className={classes.mainInfo}>
         <div className={classes.articleInfo}>
           <div className={classes.titleAndBtn}>
-            <Link className={classes.title} to={`${slug}`}>
+            <Link className={classes.title} to={`/articles/${slug}`}>
               {title === '' ? <>Article</> : shortenText(title, 150)}
             </Link>
-            <button onClick={() => {}} className={classes.likesBtn} type="button">
+            <button className={classes.likesBtn} type="button" onClick={onLiked} disabled={!authToken}>
               <img src={getIcon(isFavorited)} alt="" />
               {likes}
             </button>
@@ -45,6 +71,7 @@ function ArticlePreview({ userName, avatar, title, likes, description, dateRelea
 }
 
 ArticlePreview.defaultProps = {
+  index: 0,
   likes: 0,
   slug: '',
   title: '',
@@ -60,6 +87,7 @@ ArticlePreview.propTypes = {
   slug: PropTypes.string,
   title: PropTypes.string,
   likes: PropTypes.number,
+  index: PropTypes.number,
   avatar: PropTypes.string,
   userName: PropTypes.string,
   isFavorited: PropTypes.bool,

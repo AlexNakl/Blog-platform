@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Alert } from 'antd';
+import Cookies from 'js-cookie';
 
 import Spinner from '../Spinner';
 import Paginator from '../Pagination';
@@ -18,9 +19,10 @@ function Articles() {
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
   const dispatch = useDispatch();
+  const authToken = Cookies.get('auth-token');
 
   useEffect(() => {
-    dispatch(getArticlesGlobally(pageSize, usePage));
+    dispatch(getArticlesGlobally(pageSize, usePage, authToken));
   }, [dispatch, usePage, pageSize]);
 
   const hasData = !(isLoading || error.active);
@@ -30,7 +32,7 @@ function Articles() {
       {isLoading && !error.active ? <Spinner size="large" /> : null}
       {error.active ? <Alert message="Error" description={error.message} type="error" showIcon /> : null}
       {hasData
-        ? articles.map((article) => (
+        ? articles.map((article, index) => (
             <ArticlePreview
               key={article.slug}
               slug={article.slug}
@@ -42,6 +44,7 @@ function Articles() {
               dateRelease={article.createdAt}
               description={article.description}
               userName={article.author.username}
+              index={index}
             />
           ))
         : null}

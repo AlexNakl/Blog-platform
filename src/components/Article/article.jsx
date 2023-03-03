@@ -4,10 +4,11 @@ import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import Spinner from '../Spinner';
 import { formatDate, getIcon } from '../../util/util';
-import { getArticleSlug, deleteArticle } from '../../redux/actionCreators';
+import { getArticleSlug, deleteArticle, favorite, unfavorite } from '../../redux/actionCreators';
 import { getArticle, getIsLoading, getError, getUser } from '../../redux/selectors';
 
 import classes from './article.module.scss';
@@ -21,13 +22,22 @@ function Article() {
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
   const hasData = !(isLoading || error.active);
+  const authToken = Cookies.get('auth-token');
   const confirm = () => {
     dispatch(deleteArticle(slug, () => navigate('/', { replace: true })));
   };
 
   useEffect(() => {
-    dispatch(getArticleSlug(slug));
+    dispatch(getArticleSlug(slug, authToken));
   }, [dispatch]);
+
+  const onLiked = () => {
+    if (article.favorited) {
+      dispatch(unfavorite(slug));
+    } else {
+      dispatch(favorite(slug));
+    }
+  };
 
   return (
     <main className={classes.main}>
@@ -39,8 +49,8 @@ function Article() {
             <div className={classes.articleInfo}>
               <div className={classes.titleAndBtn}>
                 <h2 className={classes.title}>{article.title}</h2>
-                <button className={classes.likesBtn} type="button">
-                  <img src={getIcon()} alt="" />
+                <button className={classes.likesBtn} type="button" onClick={onLiked} disabled={!authToken}>
+                  <img src={getIcon(article.favorited)} alt="" />
                   {article.favoritesCount}
                 </button>
               </div>

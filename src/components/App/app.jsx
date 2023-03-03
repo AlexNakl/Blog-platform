@@ -12,6 +12,7 @@ import CreateArticle from '../CreateArticle';
 import { getCurrentlyUser } from '../../redux/actionCreators';
 import ArticleFormContainer from '../../hoc/articleFormContainer';
 import PrivateRoute from '../../hoc/privateRoute';
+import NotFoundPage from '../NotFoundPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ function App() {
           <Route index element={<Articles />} />
           <Route path="articles" element={<Articles />} />
           <Route path="articles/:slug" element={<Article />} />
-          <Route path=":slug" element={<Article />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route element={<PrivateRoute />}>
@@ -35,6 +35,7 @@ function App() {
             <Route path="new-article" element={<CreateArticle />} />
             <Route path="articles/:slug/edit" element={<ArticleFormContainer />} />
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </Router>

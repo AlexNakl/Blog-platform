@@ -16,6 +16,10 @@ import {
   LOG_OUT,
   PUT_IMG_USER,
   DELETE_ARTICLE,
+  FAVORITE_PREVIEW,
+  UNFAVORITE_PREVIEW,
+  FAVORITE,
+  UNFAVORITE,
 } from './actions';
 
 const BlogApi = new BlogApiServices();
@@ -28,12 +32,17 @@ export const updateError = (error) => ({ type: ERROR_STATUS, payload: error });
 // Articles
 export const changeUsePage = (usePage) => ({ type: CHANGE_USE_PAGE, payload: usePage });
 export const changePageSize = (current, pageSize) => ({ type: CHANGE_PAGE_SIZE, payload: pageSize });
-export const getArticlesGlobally = (limit, offset) => async (dispatch) => {
+export const getArticlesGlobally = (limit, offset, token) => async (dispatch) => {
   dispatch(toggleLoading(true));
   dispatch(updateError({ active: false, message: '' }));
   try {
-    const response = await BlogApi.getArticlesGlobally(limit, offset > 1 ? offset * limit - limit : 0);
-    dispatch({ type: GET_ARTICLES_GLOBALLY, payload: response });
+    if (token) {
+      const response = await BlogApiSession.getArticlesGlobally(limit, offset > 1 ? offset * limit - limit : 0, token);
+      dispatch({ type: GET_ARTICLES_GLOBALLY, payload: response });
+    } else {
+      const response = await BlogApi.getArticlesGlobally(limit, offset > 1 ? offset * limit - limit : 0);
+      dispatch({ type: GET_ARTICLES_GLOBALLY, payload: response });
+    }
     dispatch(toggleLoading(false));
   } catch (err) {
     console.error(err, err.message);
@@ -43,12 +52,17 @@ export const getArticlesGlobally = (limit, offset) => async (dispatch) => {
 };
 
 // Article
-export const getArticleSlug = (slug) => async (dispatch) => {
+export const getArticleSlug = (slug, token) => async (dispatch) => {
   dispatch(toggleLoading(true));
   dispatch(updateError({ active: false, message: '' }));
   try {
-    const response = await BlogApi.getArticle(slug);
-    dispatch({ type: GET_ARTICLE_SLUG, payload: response });
+    if (token) {
+      const response = await BlogApiSession.getArticle(slug, token);
+      dispatch({ type: GET_ARTICLE_SLUG, payload: response });
+    } else {
+      const response = await BlogApi.getArticle(slug);
+      dispatch({ type: GET_ARTICLE_SLUG, payload: response });
+    }
     dispatch(toggleLoading(false));
   } catch (err) {
     console.error(err, err.message);
@@ -101,6 +115,54 @@ export const editArticle = (editData, slug, cb) => async (dispatch) => {
     console.error(err, err.message);
     dispatch(updateError({ active: true, message: `${err.message}` }));
     dispatch(toggleLoading(false));
+  }
+};
+
+export const favoritePreview = (slug, index) => async (dispatch) => {
+  dispatch(updateError({ active: false, message: '' }));
+  try {
+    const authToken = Cookies.get('auth-token');
+    const response = await BlogApiSession.favorite(authToken, slug);
+    dispatch({ type: FAVORITE_PREVIEW, payload: { index, article: response.article } });
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+  }
+};
+
+export const unfavoritePreview = (slug, index) => async (dispatch) => {
+  dispatch(updateError({ active: false, message: '' }));
+  try {
+    const authToken = Cookies.get('auth-token');
+    const response = await BlogApiSession.unfavorite(authToken, slug);
+    dispatch({ type: UNFAVORITE_PREVIEW, payload: { index, article: response.article } });
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+  }
+};
+
+export const favorite = (slug) => async (dispatch) => {
+  dispatch(updateError({ active: false, message: '' }));
+  try {
+    const authToken = Cookies.get('auth-token');
+    const response = await BlogApiSession.favorite(authToken, slug);
+    dispatch({ type: FAVORITE, payload: response.article });
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
+  }
+};
+
+export const unfavorite = (slug) => async (dispatch) => {
+  dispatch(updateError({ active: false, message: '' }));
+  try {
+    const authToken = Cookies.get('auth-token');
+    const response = await BlogApiSession.unfavorite(authToken, slug);
+    dispatch({ type: UNFAVORITE, payload: response.article });
+  } catch (err) {
+    console.error(err, err.message);
+    dispatch(updateError({ active: true, message: `${err.message}` }));
   }
 };
 

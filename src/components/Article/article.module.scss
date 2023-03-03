@@ -53,6 +53,10 @@
 	& img {
 		margin-right: 5px;
 	}
+	
+	&:disabled {
+		cursor: default;
+	}
 }
  
 .tags {

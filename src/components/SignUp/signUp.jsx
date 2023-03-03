@@ -124,7 +124,7 @@ function SignUp() {
         Create
       </button>
       <p className={classes.account}>
-        Already have an account? <Link to="sign-in">Sign In.</Link>
+        Already have an account? <Link to="/sign-in">Sign In.</Link>
       </p>
     </form>
   );

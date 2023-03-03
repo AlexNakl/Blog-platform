@@ -79,7 +79,7 @@ function SignIn() {
         Login
       </button>
       <p className={classes.account}>
-        Don’t have an account? <Link to="sign-up">Sign Up.</Link>
+        Don’t have an account? <Link to="/sign-up">Sign Up.</Link>
       </p>
     </form>
   );
