@@ -203,8 +203,8 @@ export default class BlogApiSessionServices {
   }
 
   async favorite(token, slug) {
-    const urlCreateArticle = new URL(`/api/articles/${slug}/favorite`, this.baseUrl);
-    const response = await fetch(urlCreateArticle, {
+    const urlFavoriteArticle = new URL(`/api/articles/${slug}/favorite`, this.baseUrl);
+    const response = await fetch(urlFavoriteArticle, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -232,8 +232,8 @@ export default class BlogApiSessionServices {
   }
 
   async unfavorite(token, slug) {
-    const urlCreateArticle = new URL(`/api/articles/${slug}/favorite`, this.baseUrl);
-    const response = await fetch(urlCreateArticle, {
+    const urlUnFavoriteArticle = new URL(`/api/articles/${slug}/favorite`, this.baseUrl);
+    const response = await fetch(urlUnFavoriteArticle, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,

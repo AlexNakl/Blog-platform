@@ -1,12 +1,13 @@
 import React from 'react';
-import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 
 import { formatDate, getIcon, shortenText } from '../../util/util';
-import { favoritePreview, unfavoritePreview } from '../../redux/actionCreators';
+import { favoritePreview, unfavoritePreview, changeNotFoundAvatarPreview } from '../../redux/actionCreators';
+import paths from '../../helpers/routesPaths';
+import notIcon from '../../img/notFound.png';
 
 import classes from './articlePreview.module.scss';
 
@@ -33,12 +34,16 @@ function ArticlePreview({
     }
   };
 
+  const onErrorImg = () => {
+    dispatch(changeNotFoundAvatarPreview(notIcon, index));
+  };
+
   return (
     <article className={classes.articlePreview}>
       <div className={classes.mainInfo}>
         <div className={classes.articleInfo}>
           <div className={classes.titleAndBtn}>
-            <Link className={classes.title} to={`/articles/${slug}`}>
+            <Link className={classes.title} to={`/${paths.articles}/${slug}`}>
               {title === '' ? <>Article</> : shortenText(title, 150)}
             </Link>
             <button className={classes.likesBtn} type="button" onClick={onLiked} disabled={!authToken}>
@@ -47,9 +52,9 @@ function ArticlePreview({
             </button>
           </div>
           <div className={classes.tags}>
-            {tagList.map((tag) =>
+            {tagList.map((tag, i) =>
               tag ? (
-                <span key={uuid()} className={classes.tag}>
+                <span key={`${slug}${tag}${i + 1}`} className={classes.tag}>
                   {shortenText(tag, 30)}
                 </span>
               ) : null
@@ -61,7 +66,7 @@ function ArticlePreview({
             <p className={classes.userName}>{userName}</p>
             <p className={classes.dateRelease}>{formatDate(dateRelease)}</p>
           </div>
-          <img className={classes.avatar} src={avatar} alt="avatar" />
+          <img className={classes.avatar} src={avatar} alt="avatar" onError={onErrorImg} />
         </div>
       </div>
       <p className={classes.description}>{shortenText(description, 500)}</p>

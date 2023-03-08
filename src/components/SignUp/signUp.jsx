@@ -10,6 +10,7 @@ import { signUpScheme } from '../../util/util';
 import { registration } from '../../redux/actionCreators';
 import { getRegErrors, getIsLoading, getError } from '../../redux/selectors';
 import Spinner from '../Spinner';
+import paths from '../../helpers/routesPaths';
 
 import classes from './signUp.module.scss';
 
@@ -124,7 +125,7 @@ function SignUp() {
         Create
       </button>
       <p className={classes.account}>
-        Already have an account? <Link to="/sign-in">Sign In.</Link>
+        Already have an account? <Link to={`/${paths.signIn}`}>Sign In.</Link>
       </p>
     </form>
   );

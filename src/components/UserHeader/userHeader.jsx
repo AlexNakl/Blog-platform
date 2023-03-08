@@ -3,9 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { Popconfirm } from 'antd';
 
+import { PUT_IMG_USER } from '../../redux/actions';
 import { logOut, getImgProfileUser } from '../../redux/actionCreators';
 import icon from '../../img/avatar.png';
+import notIcon from '../../img/notFound.png';
 import { getUser } from '../../redux/selectors';
+import paths from '../../helpers/routesPaths';
 
 import classes from './userHeader.module.scss';
 
@@ -22,18 +25,26 @@ function UserHeader() {
   const confirm = () => {
     dispatch(logOut(() => navigate('/', { replace: true })));
   };
+
+  const onErrorImg = () => {
+    dispatch({ type: PUT_IMG_USER, payload: notIcon });
+  };
+
   return (
     <header className={classes.header}>
-      <Link className={classes.title} to="/articles">
+      <Link className={classes.title} to={`/${paths.articles}`}>
         Realworld Blog
       </Link>
       <div className={classes.btnsWrapper}>
-        <NavLink to="/new-article" className={({ isActive }) => (isActive ? classes.active : classes.createArticle)}>
+        <NavLink
+          to={`/${paths.newArticle}`}
+          className={({ isActive }) => (isActive ? classes.active : classes.createArticle)}
+        >
           Create article
         </NavLink>
-        <Link className={classes.userInfo} to="/profile">
+        <Link className={classes.userInfo} to={`/${paths.profile}`}>
           <p className={classes.username}>{user.username}</p>
-          <img src={imgSrc} alt="avatar" />
+          <img src={imgSrc} alt="avatar" onError={onErrorImg} />
         </Link>
         <Popconfirm
           title="Log out"

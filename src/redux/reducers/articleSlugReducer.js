@@ -1,4 +1,4 @@
-import { GET_ARTICLE_SLUG, DELETE_ARTICLE, FAVORITE, UNFAVORITE } from '../actions';
+import { GET_ARTICLE_SLUG, DELETE_ARTICLE, FAVORITE, UNFAVORITE, PUT_NOT_FOUND_AVATAR_ARTICLE } from '../actions';
 
 const initialState = {
   article: {
@@ -29,6 +29,8 @@ const articleSlugReducer = (state = initialState, action) => {
       return { ...state, article: action.payload };
     case UNFAVORITE:
       return { ...state, article: action.payload };
+    case PUT_NOT_FOUND_AVATAR_ARTICLE:
+      return { ...state, article: { ...state.article, author: { ...state.article.author, image: action.payload } } };
     default:
       return state;
   }

@@ -13,6 +13,7 @@ import { getCurrentlyUser } from '../../redux/actionCreators';
 import ArticleFormContainer from '../../hoc/articleFormContainer';
 import PrivateRoute from '../../hoc/privateRoute';
 import NotFoundPage from '../NotFoundPage';
+import paths from '../../helpers/routesPaths';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,14 +27,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Articles />} />
-          <Route path="articles" element={<Articles />} />
-          <Route path="articles/:slug" element={<Article />} />
-          <Route path="sign-up" element={<SignUp />} />
-          <Route path="sign-in" element={<SignIn />} />
+          <Route path={`${paths.articles}`} element={<Articles />} />
+          <Route path={`${paths.articles}/:${paths.slug}`} element={<Article />} />
+          <Route path={`${paths.signUp}`} element={<SignUp />} />
+          <Route path={`${paths.signIn}`} element={<SignIn />} />
           <Route element={<PrivateRoute />}>
-            <Route path="profile" element={<EditProfile />} />
-            <Route path="new-article" element={<CreateArticle />} />
-            <Route path="articles/:slug/edit" element={<ArticleFormContainer />} />
+            <Route path={`${paths.profile}`} element={<EditProfile />} />
+            <Route path={`${paths.newArticle}`} element={<CreateArticle />} />
+            <Route path={`${paths.articles}/:${paths.slug}/${paths.edit}`} element={<ArticleFormContainer />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Route>

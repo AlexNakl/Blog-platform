@@ -1,5 +1,4 @@
 import { Alert, Popconfirm } from 'antd';
-import { v4 as uuid } from 'uuid';
 import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,8 +7,16 @@ import Cookies from 'js-cookie';
 
 import Spinner from '../Spinner';
 import { formatDate, getIcon } from '../../util/util';
-import { getArticleSlug, deleteArticle, favorite, unfavorite } from '../../redux/actionCreators';
+import {
+  getArticleSlug,
+  deleteArticle,
+  favorite,
+  unfavorite,
+  changeNotFoundAvatarArticle,
+} from '../../redux/actionCreators';
 import { getArticle, getIsLoading, getError, getUser } from '../../redux/selectors';
+import paths from '../../helpers/routesPaths';
+import notIcon from '../../img/notFound.png';
 
 import classes from './article.module.scss';
 
@@ -39,6 +46,10 @@ function Article() {
     }
   };
 
+  const onErrorImg = () => {
+    dispatch(changeNotFoundAvatarArticle(notIcon));
+  };
+
   return (
     <main className={classes.main}>
       {isLoading && !error.active ? <Spinner size="large" /> : null}
@@ -55,9 +66,9 @@ function Article() {
                 </button>
               </div>
               <div className={classes.tags}>
-                {article.tagList.map((tag) =>
+                {article.tagList.map((tag, i) =>
                   tag ? (
-                    <span key={uuid()} className={classes.tag}>
+                    <span key={`${slug}${tag}${i + 1}`} className={classes.tag}>
                       {tag}
                     </span>
                   ) : null
@@ -69,7 +80,7 @@ function Article() {
                 <p className={classes.userName}>{article.author.username}</p>
                 <p className={classes.dateRelease}>{formatDate(article.createdAt)}</p>
               </div>
-              <img className={classes.avatar} src={article.author.image} alt="avatar" />
+              <img className={classes.avatar} src={article.author.image} alt="avatar" onError={onErrorImg} />
             </div>
           </div>
           <div className={classes.descriptionWrapper}>
@@ -87,7 +98,7 @@ function Article() {
                     Delete
                   </button>
                 </Popconfirm>
-                <Link to={`/articles/${slug}/edit`} state={article} className={classes.btnEdit}>
+                <Link to={`/${paths.articles}/${slug}/${paths.edit}`} state={article} className={classes.btnEdit}>
                   Edit
                 </Link>
               </div>

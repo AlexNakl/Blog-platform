@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Cookies from 'js-cookie';
 
 import BlogApiServices from '../services/BlogApiServices';
@@ -19,6 +20,8 @@ import {
   UNFAVORITE_PREVIEW,
   FAVORITE,
   UNFAVORITE,
+  PUT_NOT_FOUND_AVATAR_PREVIEW,
+  PUT_NOT_FOUND_AVATAR_ARTICLE,
 } from './actions';
 
 const BlogApi = new BlogApiServices();
@@ -31,6 +34,10 @@ export const updateError = (error) => ({ type: ERROR_STATUS, payload: error });
 // Articles
 export const changeUsePage = (usePage) => ({ type: CHANGE_USE_PAGE, payload: usePage });
 export const changePageSize = (current, pageSize) => ({ type: CHANGE_PAGE_SIZE, payload: pageSize });
+export const changeNotFoundAvatarPreview = (src, index) => ({
+  type: PUT_NOT_FOUND_AVATAR_PREVIEW,
+  payload: { src, index },
+});
 export const getArticlesGlobally = (limit, offset, token) => async (dispatch) => {
   dispatch(toggleLoading(true));
   dispatch(updateError({ active: false, message: '' }));
@@ -51,6 +58,10 @@ export const getArticlesGlobally = (limit, offset, token) => async (dispatch) =>
 };
 
 // Article
+export const changeNotFoundAvatarArticle = (src) => ({
+  type: PUT_NOT_FOUND_AVATAR_ARTICLE,
+  payload: src,
+});
 export const getArticleSlug = (slug, token) => async (dispatch) => {
   dispatch(toggleLoading(true));
   dispatch(updateError({ active: false, message: '' }));

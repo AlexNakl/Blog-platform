@@ -4,6 +4,7 @@ import {
   CHANGE_PAGE_SIZE,
   FAVORITE_PREVIEW,
   UNFAVORITE_PREVIEW,
+  PUT_NOT_FOUND_AVATAR_PREVIEW,
 } from '../actions';
 
 const initialState = {
@@ -31,6 +32,11 @@ const articlesReducer = (state = initialState, action) => {
       const newUnArr = [...state.articles];
       newUnArr[action.payload.index] = action.payload.article;
       return { ...state, articles: newUnArr };
+    case PUT_NOT_FOUND_AVATAR_PREVIEW:
+      // eslint-disable-next-line no-case-declarations
+      const newImgArr = [...state.articles];
+      newImgArr[action.payload.index].author.image = action.payload.src;
+      return { ...state, articles: newImgArr };
     default:
       return state;
   }
